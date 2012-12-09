@@ -193,6 +193,16 @@ class Application extends Container implements HttpKernelInterface {
 	{
 		return php_sapi_name() == 'cli';
 	}
+	
+	/**
+	 * Determine if we are running unit tests.
+	 *
+	 * @return bool
+	 */
+	public function runningUnitTests()
+	{
+		return $this['env'] == 'testing';
+	}
 
 	/**
 	 * Register a service provider with the application.
