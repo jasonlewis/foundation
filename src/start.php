@@ -12,8 +12,42 @@
 */
 
 use Illuminate\Filesystem;
+use Illuminate\Config\FileLoader;
 use Illuminate\Config\Repository as Config;
 use Illuminate\Foundation\ProviderRepository;
+
+/*
+|--------------------------------------------------------------------------
+| Check For The Test Environment
+|--------------------------------------------------------------------------
+|
+| If the "unitTesting" variable is set, it means we are running the unit
+| tests for the application and should override this environment here
+| so we use the right configuration. The flag gets set by TestCase.
+|
+*/
+
+if (isset($unitTesting))
+{
+	$app['env'] = $env = $testEnvironment;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Register The Configuration Loader
+|--------------------------------------------------------------------------
+|
+| The configuration loader is responsible for loading the configuration
+| options for the application. By default we'll use the "file" loader
+| but you are free to use any custom loaders with your application.
+|
+*/
+
+$app->bindIf('config.loader', function($app) use ($appPath)
+{
+	return new FileLoader(new Filesystem, $appPath.'/config');
+
+}, true);
 
 /*
 |--------------------------------------------------------------------------
