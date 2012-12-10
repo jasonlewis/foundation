@@ -13,6 +13,7 @@
 
 use Illuminate\Filesystem;
 use Illuminate\Config\FileLoader;
+use Illuminate\Support\Facades\Facade;
 use Illuminate\Config\Repository as Config;
 use Illuminate\Foundation\ProviderRepository;
 
@@ -116,7 +117,9 @@ $app->registerAliasLoader($config['aliases']);
 |
 */
 
-Illuminate\Support\Facades\Facade::setFacadeApplication($app);
+Facade::clearResolvedInstances();
+
+Facade::setFacadeApplication($app);
 
 /*
 |--------------------------------------------------------------------------
