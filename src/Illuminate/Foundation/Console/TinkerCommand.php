@@ -63,7 +63,7 @@ class TinkerCommand extends Command {
 	{
 		$dialog = $this->getHelperSet()->get('dialog');
 
-		return $dialog->ask($this->output, "<info>></info>", $default);
+		return $dialog->ask($this->output, "<info>></info>", null);
 	}
 
 }
