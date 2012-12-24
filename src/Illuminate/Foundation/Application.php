@@ -224,16 +224,17 @@ class Application extends Container implements HttpKernelInterface {
 	 * (Overriding Container::make)
 	 *
 	 * @param  string  $abstract
+	 * @param  array   $parameters
 	 * @return mixed
 	 */
-	public function make($abstract)
+	public function make($abstract, $parameters = array())
 	{
 		if (isset($this->deferredServices[$abstract]))
 		{
 			$this->loadDeferredProvider($abstract);
 		}
 
-		return parent::make($abstract);
+		return parent::make($abstract, $parameters);
 	}
 
 	/**
