@@ -19,23 +19,7 @@ class Client extends BaseClient {
 
 		$httpRequest->files->replace($this->filterFiles($httpRequest->files->all()));
 
-		return $this->prepareRequest($httpRequest);
-	}
-
-	/**
-	 * Prepare the Illuminate HTTP request.
-	 *
-	 * @param  Illuminate\Http\Request  $request
-	 * @return Illuminate\Http\Request
-	 */
-	protected function prepareRequest($request)
-	{
-		if (isset($this->kernel['session']))
-		{
-			$request->setSessionStore($this->kernel['session']);
-		}
-
-		return $request;
+		return $httpRequest;
 	}
 
 }
