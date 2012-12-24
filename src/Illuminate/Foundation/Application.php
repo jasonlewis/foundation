@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Application extends Container implements HttpKernelInterface {
 
@@ -433,6 +434,20 @@ class Application extends Container implements HttpKernelInterface {
 	public function error(Closure $callback)
 	{
 		$this['exception']->error($callback);
+	}
+
+	/**
+	 * Register a 404 error handler.
+	 *
+	 * @param  Closure  $callback
+	 * @return void
+	 */
+	public function missing(Closure $callback)
+	{
+		$this->error(function(NotFoundHttpException $e) use ($callback)
+		{
+			return call_user_func($callback, $e);
+		});
 	}
 
 	/**
