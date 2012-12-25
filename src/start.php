@@ -12,6 +12,7 @@
 */
 
 use Illuminate\Filesystem;
+use Illuminate\Http\Request;
 use Illuminate\Config\FileLoader;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Config\Repository as Config;
@@ -105,6 +106,19 @@ date_default_timezone_set($config['timezone']);
 */
 
 $app->registerAliasLoader($config['aliases']);
+
+/*
+|--------------------------------------------------------------------------
+| Enable HTTP Method Override
+|--------------------------------------------------------------------------
+|
+| Next we will tell the request class to allow HTTP method overriding
+| since we use this to simulate PUT and DELETE requests from forms
+| as they are not currently supported by plain HTML form setups.
+|
+*/
+
+Request::enableHttpMethodParameterOverride();
 
 /*
 |--------------------------------------------------------------------------
