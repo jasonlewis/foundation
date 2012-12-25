@@ -18,17 +18,6 @@ class ApplicationTest extends PHPUnit_Framework_TestCase {
 	}
 
 
-	public function testBasicRoutingIntegration()
-	{
-		$app = new Application;
-		$app['router']->get('/foo', function() { return 'bar'; });
-		$app['request'] = Request::create('/foo');
-		$response = $app->dispatch($app['request']);
-		$this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
-		$this->assertEquals('bar', $response->getContent());
-	}
-
-
 	public function testEnvironmenetDetection()
 	{
 		$app = m::mock('Illuminate\Foundation\Application[runningInConsole]');
