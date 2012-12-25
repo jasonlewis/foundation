@@ -30,7 +30,7 @@ class ServeCommand extends Command {
 
 		$port = $this->input->getOption('port');
 
-		$this->info("Laravel development server started on port {$port}");
+		$this->info("Laravel development server started on port {$port}...");
 
 		passthru("php -S localhost:{$port} -t public server.php");
 	}
