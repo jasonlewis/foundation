@@ -26,7 +26,7 @@ class ServeCommand extends Command {
 	 */
 	public function fire()
 	{
-		chdir($this->app['path.base']);
+		chdir($this->laravel['path.base']);
 
 		$port = $this->input->getOption('port');
 
