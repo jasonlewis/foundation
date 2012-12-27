@@ -27,6 +27,26 @@ function set_app($application)
 }
 
 /**
+ * Get the path to the application folder.
+ *
+ * @return  string
+ */
+function app_path()
+{
+	return app()->make('path');
+}
+
+/**
+ * Get the base to the base of the install.
+ *
+ * @return string
+ */
+function base_path()
+{
+	return app()->make('path.base');
+}
+
+/**
  * Get the CSRF token value.
  *
  * @return string
