@@ -6,12 +6,6 @@ use Illuminate\Foundation\Application;
 
 class ApplicationTest extends PHPUnit_Framework_TestCase {
 
-	public static function setUpBeforeClass()
-	{
-		set_app(new Application);
-	}
-
-
 	public function tearDown()
 	{
 		m::close();
