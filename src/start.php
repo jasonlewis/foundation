@@ -36,6 +36,21 @@ if (isset($unitTesting))
 
 /*
 |--------------------------------------------------------------------------
+| Load The Illuminate Facades
+|--------------------------------------------------------------------------
+|
+| The facades provide a terser static interface over the various parts
+| of the application, allowing their methods to be accessed through
+| a mixtures of magic methods and facade derivatives. It's slick.
+|
+*/
+
+Facade::clearResolvedInstances();
+
+Facade::setFacadeApplication($app);
+
+/*
+|--------------------------------------------------------------------------
 | Register The Configuration Loader
 |--------------------------------------------------------------------------
 |
@@ -119,21 +134,6 @@ $app->registerAliasLoader($config['aliases']);
 */
 
 Request::enableHttpMethodParameterOverride();
-
-/*
-|--------------------------------------------------------------------------
-| Load The Illuminate Facades
-|--------------------------------------------------------------------------
-|
-| The facades provide a terser static interface over the various parts
-| of the application, allowing their methods to be accessed through
-| a mixtures of magic methods and facade derivatives. It's slick.
-|
-*/
-
-Facade::clearResolvedInstances();
-
-Facade::setFacadeApplication($app);
 
 /*
 |--------------------------------------------------------------------------
