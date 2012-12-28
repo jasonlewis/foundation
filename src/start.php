@@ -11,7 +11,10 @@
 |
 */
 
-define('LARAVEL_VERSION', '4.0.0');
+if ( ! defined('LARAVEL_VERSION'))
+{
+	define('LARAVEL_VERSION', '4.0.0');
+}
 
 /*
 |--------------------------------------------------------------------------
