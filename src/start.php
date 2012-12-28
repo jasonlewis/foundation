@@ -2,6 +2,19 @@
 
 /*
 |--------------------------------------------------------------------------
+| Define The Laravel Version
+|--------------------------------------------------------------------------
+|
+| Here we will set the Laravel version that is utilized to identify this
+| installation of the framework. It is primarily used via the console
+| to display the version to the developer for information purposes.
+|
+*/
+
+define('LARAVEL_VERSION', '4.0.0');
+
+/*
+|--------------------------------------------------------------------------
 | Register Class Imports
 |--------------------------------------------------------------------------
 |
