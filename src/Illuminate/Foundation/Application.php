@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Events\EventServiceProvider;
 use Illuminate\Routing\RoutingServiceProvider;
 use Illuminate\Exception\ExceptionServiceProvider;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -63,6 +64,8 @@ class Application extends Container implements HttpKernelInterface {
 		$this->register(new ExceptionServiceProvider($this));
 
 		$this->register(new RoutingServiceProvider($this));
+
+		$this->register(new EventServiceProvider($this));
 	}
 
 	/**
