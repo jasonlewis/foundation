@@ -23,6 +23,8 @@ class TinkerServiceProvider extends ServiceProvider {
 		{
 			return new TinkerCommand;
 		});
+
+		$this->commands('command.tinker');
 	}
 
 	/**

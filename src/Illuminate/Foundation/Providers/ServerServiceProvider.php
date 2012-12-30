@@ -23,6 +23,8 @@ class ServerServiceProvider extends ServiceProvider {
 		{
 			return new ServeCommand;
 		});
+
+		$this->commands('command.serve');
 	}
 
 	/**
