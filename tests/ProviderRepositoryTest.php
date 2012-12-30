@@ -13,12 +13,29 @@ class ProviderRepositoryTest extends PHPUnit_Framework_TestCase {
 	public function testServicesAreRegisteredWhenManifestIsNotRecompiled()
 	{
 		$repo = m::mock('Illuminate\Foundation\ProviderRepository[createProvider,loadManifest,shouldRecompile]', array(m::mock('Illuminate\Filesystem')));
-		$repo->shouldReceive('loadManifest')->once()->andReturn(array('eager' => array('foo'), 'deferred' => array('deferred')));
+		$repo->shouldReceive('loadManifest')->once()->andReturn(array('eager' => array('foo'), 'deferred' => array('deferred'), 'providers' => array('providers')));
 		$repo->shouldReceive('shouldRecompile')->once()->andReturn(false);
-		$app = m::mock('Illuminate\Foundation\Application[register,setDeferredServices]');
+		$app = m::mock('Illuminate\Foundation\Application[register,setDeferredServices,runningInConsole]');
 		$provider = m::mock('Illuminate\Support\ServiceProvider');
 		$repo->shouldReceive('createProvider')->once()->with($app, 'foo')->andReturn($provider);
 		$app->shouldReceive('register')->once()->with($provider);
+		$app->shouldReceive('runningInConsole')->andReturn(false);
+		$app->shouldReceive('setDeferredServices')->once()->with(array('deferred'));
+
+		$repo->load($app, array());
+	}
+
+
+	public function testServicesAreNeverLazyLoadedWhenRunningInConsole()
+	{
+		$repo = m::mock('Illuminate\Foundation\ProviderRepository[createProvider,loadManifest,shouldRecompile]', array(m::mock('Illuminate\Filesystem')));
+		$repo->shouldReceive('loadManifest')->once()->andReturn(array('eager' => array('foo'), 'deferred' => array('deferred'), 'providers' => array('providers')));
+		$repo->shouldReceive('shouldRecompile')->once()->andReturn(false);
+		$app = m::mock('Illuminate\Foundation\Application[register,setDeferredServices,runningInConsole]');
+		$provider = m::mock('Illuminate\Support\ServiceProvider');
+		$repo->shouldReceive('createProvider')->once()->with($app, 'providers')->andReturn($provider);
+		$app->shouldReceive('register')->once()->with($provider);
+		$app->shouldReceive('runningInConsole')->andReturn(true);
 		$app->shouldReceive('setDeferredServices')->once()->with(array('deferred'));
 
 		$repo->load($app, array());
@@ -46,6 +63,8 @@ class ProviderRepositoryTest extends PHPUnit_Framework_TestCase {
 		// bar mock should be registered with the application since it's eager
 		$repo->shouldReceive('createProvider')->once()->with($app, 'bar')->andReturn($barMock);
 		$app->shouldReceive('register')->once()->with($barMock);
+
+		$app->shouldReceive('runningInConsole')->andReturn(false);
 
 		// the deferred should be set on the application
 		$app->shouldReceive('setDeferredServices')->once()->with(array('foo.provides1' => 'foo', 'foo.provides2' => 'foo'));

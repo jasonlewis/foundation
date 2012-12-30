@@ -31,14 +31,22 @@ class ProviderRepository {
 	 */
 	public function load(Application $app, array $providers)
 	{
+		$manifest = $this->loadManifest($app);
+
 		// First we will load the service manifest, which contains information on all
 		// service providers registered with the application and which services it
 		// provides. This is used to know which services are "deferred" loaders.
-		$manifest = $this->loadManifest($app);
-
 		if ($this->shouldRecompile($manifest, $providers))
 		{
 			$manifest = $this->compileManifest($app, $providers);	
+		}
+
+		// If the application is running in the console, we will not lazy load any of
+		// the service providers. This is mainly because it's not as necessary for
+		// performance and also so any provided Artisan commands get registered.
+		if ($app->runningInConsole())
+		{
+			$manifest['eager'] = $manifest['providers'];
 		}
 
 		// We will go ahead and register all of the eagerly loaded providers with the
