@@ -25,6 +25,8 @@ class PublisherServiceProvider extends ServiceProvider {
 		$this->registerAssetPublisher();
 
 		$this->registerConfigPublisher();
+
+		$this->commands('command.asset.publish', 'command.config.publish');
 	}
 
 	/**
