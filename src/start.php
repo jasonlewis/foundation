@@ -52,6 +52,21 @@ if (isset($unitTesting))
 
 /*
 |--------------------------------------------------------------------------
+| Set PHP Error Reporting Options
+|--------------------------------------------------------------------------
+|
+| Here we will set the strictest error reporting options, and also turn
+| off PHP's error reporting, since all errors will be handled by the
+| framework and we don't want any output leaking back to the user.
+|
+*/
+
+if ($env != 'testing') ini_set('display_errors', 'Off');
+
+error_reporting(-1);
+
+/*
+|--------------------------------------------------------------------------
 | Load The Illuminate Facades
 |--------------------------------------------------------------------------
 |
