@@ -44,8 +44,6 @@ class AliasLoader {
 	{
 		if (is_null(static::$instance)) static::$instance = new static($aliases);
 
-		static::$instance->setAliases($aliases);
-
 		return static::$instance;
 	}
 
